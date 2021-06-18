@@ -11,14 +11,20 @@ import (
 
 // Complete the minimumSwaps function below.
 func minimumSwaps(arr []int32) int32 {
-	sigma := 0
+	var arrMap = make(map[int32]int32)
+	var swap int32 = 0
 	for i, val := range arr {
-		if (int32(i) - val + 1) == 0 {
-			fmt.Println("index : ", i, " value: ", val)
-			sigma++
+		arrMap[val] = int32(i + 1)
+	}
+	var i int32 = 1
+	for ; i <= int32(len(arr)); i++ {
+		if arrMap[i] != i {
+			arrMap[arr[i-1]] = arrMap[i]
+			arr[arrMap[i]-1] = arr[i-1]
+			swap++
 		}
 	}
-	return int32(len(arr) - (sigma + 1))
+	return swap
 }
 
 func main() {
